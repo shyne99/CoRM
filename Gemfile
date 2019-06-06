@@ -12,8 +12,8 @@ gem 'unicode_utils'
 gem 'pg'
 
 group :development, :test do
-  gem 'debugger' # for ruby < 2.0
-  #gem 'byebug' # for ruby >= 2.0
+  #gem 'debugger' # for ruby < 2.0
+  gem 'byebug', '~> 9.0.6' # for ruby >= 2.0
 end
 
 # Gems used only for assets and not required
