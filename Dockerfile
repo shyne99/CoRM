@@ -1,7 +1,7 @@
 
-# for armv7 -> FROM arm32v7/ruby:2.3
+# for armv7 -> FROM arm32v7/ruby:2.1.10
 
-FROM ruby:2.3.0
+FROM ruby:2.1.10
 
 RUN mkdir /myapp
 
