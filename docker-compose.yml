@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-  #for arm -> image: arm32v7/postgres:9.4 
+#   image: arm32v7/postgres:9.4
     image: postgres:9.4
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
@@ -12,3 +12,24 @@ services:
       - "3000:3000"
     depends_on:
       - db
+  pgbackups:
+    container_name: Backup
+    build: ./postgresBackup    
+    restart: always
+    volumes:
+      - ./backup:/backups
+    links:
+      - db:db
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=db_corm_dev 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=
+      - POSTGRES_EXTRA_OPTS=-Z9 --schema=public --blobs
+      - SCHEDULE=@every 0h30m00s
+      - BACKUP_KEEP_DAYS=7
+      - BACKUP_KEEP_WEEKS=4
+      - BACKUP_KEEP_MONTHS=6
+      - HEALTHCHECK_PORT=81
